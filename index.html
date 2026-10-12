@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Freediving Berlin | AIDA courses and training with Anas Chair</title>
+  <meta name="description" content="AIDA freediving in Berlin with Anas Chair: first dives in a dive tower in winter, open-water training in summer and deep seminars at Deepspot.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B1F3F'/%3E%3Crect x='5' y='11' width='22' height='10' rx='5' fill='%23FAEC15'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@200;300;400;500;600&family=Spectral:wght@200;300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#courses">Skip to courses</a>
+
+  <header class="nav">
+    <a class="nav__brand" href="#top">Freediving Berlin</a>
+    <nav class="nav__links" aria-label="Main">
+      <a href="#courses">Courses</a>
+      <a href="#about">About</a>
+      <a class="nav__contact" href="#contact">Contact</a>
+      <button class="btn btn--small" type="button" data-book>Book<span> a course</span></button>
+    </nav>
+  </header>
+
+  <div class="dive" id="top">
+    <div class="rope" aria-hidden="true"></div>
+    <div class="plate" aria-hidden="true"></div>
+    <div class="lanyard" aria-hidden="true"><span id="depth">0</span> m</div>
+
+    <!-- 0 m: the surface -->
+    <section class="surface">
+      <div class="surface__rays" aria-hidden="true"></div>
+      <svg class="surface__wave" viewBox="0 0 2880 14" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 0H2880V7Q2820 14 2760 7T2640 7T2520 7T2400 7T2280 7T2160 7T2040 7T1920 7T1800 7T1680 7T1560 7T1440 7T1320 7T1200 7T1080 7T960 7T840 7T720 7T600 7T480 7T360 7T240 7T120 7T0 7Z"/>
+      </svg>
+
+      <button class="buoy" type="button" data-newsletter aria-label="Subscribe to the newsletter">
+        <svg class="buoy__float" viewBox="0 0 96 44" aria-hidden="true">
+          <defs><clipPath id="buoy-body"><rect x="2" y="8" width="92" height="30" rx="15"/></clipPath></defs>
+          <path d="M36 9C36 1 60 1 60 9" fill="none" stroke="#0B1F3F" stroke-width="2.5" stroke-linecap="round"/>
+          <rect x="2" y="8" width="92" height="30" rx="15" fill="#FAEC15"/>
+          <rect x="0" y="27" width="96" height="14" fill="#D6C700" clip-path="url(#buoy-body)"/>
+          <rect x="24" y="8" width="5" height="30" fill="#0B1F3F"/>
+          <rect x="67" y="8" width="5" height="30" fill="#0B1F3F"/>
+          <path d="M36 15H58" stroke="#fff" stroke-opacity=".75" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span class="buoy__label">Newsletter</span>
+      </button>
+
+      <div class="surface__copy">
+        <h1>Learn to dive on a single breath.</h1>
+        <p class="surface__lede">Freediving Berlin teaches AIDA freediving in small groups: first dives in a dive tower in winter, open-water training in summer and deep seminars at Deepspot.</p>
+        <a class="descend" href="#courses">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v15m0 0l-6-6m6 6l6-6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Scroll down to dive<small>Each course waits at the depth it takes you to.</small></span>
+        </a>
+      </div>
+    </section>
+
+    <div class="depths">
+      <section class="courses" id="courses">
+        <header class="courses__intro">
+          <h2>Courses and training</h2>
+          <p>Each one sits at the depth it takes you to. Find yours, then choose a date.</p>
+        </header>
+
+        <article class="stop" id="try-freediving" data-depth="9" style="--d:.15">
+          <span class="stop__mark" aria-hidden="true"></span>
+          <p class="stop__depth" aria-label="Depth: 9 metres">9<span> m</span></p>
+          <div class="stop__body">
+            <h3>Try Freediving</h3>
+            <p>Your first dives, in the calm, clear water of an indoor dive tower. You learn to breathe, relax and equalise, then follow the line down as far as feels good, to a maximum of 9&nbsp;metres.</p>
+            <dl class="facts">
+              <div><dt>Season</dt><dd>Winter</dd></div>
+              <div><dt>Where</dt><dd>Dive tower, Berlin</dd></div>
+              <div><dt>Price</dt><dd>€89</dd></div>
+            </dl>
+            <button class="btn" type="button" data-book="try-freediving" aria-label="Choose a date for Try Freediving">Choose a date</button>
+          </div>
+          <figure class="stop__photo">
+            <img src="https://images.unsplash.com/photo-1790292012338-1784c86526dc?auto=format&fit=crop&w=900&q=70" alt="A diver under water in a bright blue pool, bubbles rising to the surface" width="900" height="1125" loading="lazy">
+          </figure>
+        </article>
+
+        <article class="stop" id="summer-training" data-depth="30" style="--d:.45">
+          <span class="stop__mark" aria-hidden="true"></span>
+          <p class="stop__depth" aria-label="Depth: 30 metres">30<span> m</span></p>
+          <div class="stop__body">
+            <h3>Summer advanced training</h3>
+            <p>Coached depth sessions in open water once the season starts. Every level trains on the same line, and each diver works toward their own depth with a safety buddy alongside.</p>
+            <dl class="facts">
+              <div><dt>Season</dt><dd>Summer</dd></div>
+              <div><dt>Where</dt><dd>Open water</dd></div>
+              <div><dt>Price</dt><dd>€45 per session</dd></div>
+            </dl>
+            <button class="btn" type="button" data-book="summer-training" aria-label="Choose a date for Summer advanced training">Choose a date</button>
+          </div>
+          <figure class="stop__photo">
+            <img src="https://images.unsplash.com/photo-1462947760324-15811216b688?auto=format&fit=crop&w=900&q=70" alt="A freediver in long fins descending head first beside a dive line" width="900" height="1125" loading="lazy">
+          </figure>
+        </article>
+
+        <article class="stop" id="deepspot" data-depth="45" style="--d:.8">
+          <span class="stop__mark" aria-hidden="true"></span>
+          <p class="stop__depth" aria-label="Depth: 45 metres">45<span> m</span></p>
+          <div class="stop__body">
+            <h3>Deepspot winter seminars</h3>
+            <p>Weekend seminars at Deepspot in Poland, an indoor pool 45&nbsp;metres deep, so your depth training doesn't stop when the lakes turn cold.</p>
+            <dl class="facts">
+              <div><dt>Season</dt><dd>Winter</dd></div>
+              <div><dt>Where</dt><dd>Deepspot, Poland</dd></div>
+              <div><dt>Price</dt><dd>€320</dd></div>
+            </dl>
+            <button class="btn" type="button" data-book="deepspot" aria-label="Choose a date for Deepspot winter seminars">Choose a date</button>
+          </div>
+          <figure class="stop__photo">
+            <img src="https://images.unsplash.com/photo-1628630500614-1c8924c99c3e?auto=format&fit=crop&w=900&q=70" alt="A lone freediver swimming through deep, dark blue water" width="900" height="1125" loading="lazy">
+          </figure>
+        </article>
+      </section>
+
+      <section class="about" id="about">
+        <div class="about__bio">
+          <div class="about__text">
+            <h2>Who you'll be diving with</h2>
+            <p class="about__lead">I'm Anas Chair, an AIDA freediving instructor based in Berlin and the founder of Freediving Berlin.</p>
+            <p>I teach people to stay calm under water, from nervous first-timers to experienced divers chasing depth. My groups are small, unhurried and built around safety, because nobody relaxes while they feel rushed.</p>
+            <p>Away from the school, I work under water for film, television and the stage.</p>
+          </div>
+          <figure class="about__portrait">
+            <img src="https://images.unsplash.com/photo-1614241580814-477d221ebaeb?auto=format&fit=crop&w=900&q=70" alt="A freediver in silhouette, rising toward sunlight at the surface" width="900" height="1125" loading="lazy">
+            <figcaption>Anas Chair, founder and instructor</figcaption>
+          </figure>
+        </div>
+
+        <div class="work">
+          <h3>Work beyond the school</h3>
+          <p class="work__intro">Stunts, performance and safety diving for productions that need someone at ease under water.</p>
+
+          <div class="work__stills">
+            <img src="https://images.unsplash.com/photo-1560942485-b2a11cc13456?auto=format&fit=crop&w=700&q=70" alt="A performer in a white dress floating under water" width="700" height="933" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1749803522530-1f28fce3801b?auto=format&fit=crop&w=700&q=70" alt="A dancer mid-movement under water against a dark background" width="700" height="933" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1439902315629-cd882022cea0?auto=format&fit=crop&w=700&q=70" alt="Black and white photograph of a figure suspended under water" width="700" height="933" loading="lazy">
+          </div>
+
+          <ul class="credits">
+            <li><span class="credits__kind">Film</span><span class="credits__what">Underwater stunt double, feature film</span><span class="credits__year">2025</span></li>
+            <li><span class="credits__kind">Television</span><span class="credits__what">Breath-hold coaching for the cast of a drama series</span><span class="credits__year">2024</span></li>
+            <li><span class="credits__kind">Theatre</span><span class="credits__what">Underwater choreography for a stage production</span><span class="credits__year">2024</span></li>
+            <li><span class="credits__kind">Commercial</span><span class="credits__what">Safety diver on a brand shoot</span><span class="credits__year">2023</span></li>
+            <li><span class="credits__kind">Photography</span><span class="credits__what">Underwater model for a fashion editorial</span><span class="credits__year">2023</span></li>
+            <li><span class="credits__kind">Performance</span><span class="credits__what">Live breath-hold piece at an arts festival</span><span class="credits__year">2022</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <footer class="bottom" id="contact" data-depth="50">
+        <h2>Questions before you book?</h2>
+        <p class="bottom__lede">Write to us and we'll help you find the right course. Or go straight to the dates.</p>
+        <div class="bottom__actions">
+          <button class="btn" type="button" data-book>Book a course</button>
+          <a class="bottom__mail" href="mailto:hello@example.com">hello@example.com</a>
+        </div>
+
+        <p class="bottom__turn">This is the bottom plate, where divers turn around. <a href="#top">Back to the surface</a></p>
+
+        <div class="bottom__meta">
+          <span>© 2026 Freediving Berlin</span>
+          <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
+          <button type="button" data-newsletter>Newsletter</button>
+          <a href="#">Imprint</a>
+          <a href="#">Privacy</a>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <dialog class="sheet" id="newsletter" aria-labelledby="nl-title">
+    <form method="dialog"><button class="sheet__close" aria-label="Close">Close</button></form>
+    <h2 id="nl-title">Newsletter</h2>
+    <p>New course dates, lake trips and training tips. About one email a month.</p>
+    <form class="sheet__form" id="nl-form">
+      <label for="nl-email">Email address</label>
+      <div class="sheet__row">
+        <input id="nl-email" type="email" name="email" autocomplete="email" placeholder="you@example.com" required>
+        <button class="btn" type="submit">Subscribe</button>
+      </div>
+    </form>
+    <!-- NEWSLETTER: not connected to a mailing list yet -->
+    <p class="sheet__done" id="nl-done" role="status" hidden>Subscribed. (Draft only: this form isn't connected to a mailing list yet.)</p>
+  </dialog>
+
+  <!-- Booking: course, then date, then details. Filled in by booking.js -->
+  <dialog class="sheet sheet--booking" id="booking" aria-labelledby="bk-title">
+    <form method="dialog"><button class="sheet__close" aria-label="Close">Close</button></form>
+    <p class="booking__step" id="bk-step"></p>
+    <h2 id="bk-title" tabindex="-1"></h2>
+
+    <div data-step="course">
+      <div class="options" id="bk-courses"></div>
+    </div>
+
+    <div data-step="date" hidden>
+      <p class="booking__summary" id="bk-course-summary"></p>
+      <div class="options" id="bk-dates"></div>
+      <button class="booking__back" type="button" data-back="course">Back to courses</button>
+    </div>
+
+    <form data-step="details" id="bk-form" hidden>
+      <p class="booking__summary" id="bk-session-summary"></p>
+      <label class="field">Full name
+        <input type="text" name="name" autocomplete="name" required>
+      </label>
+      <label class="field">Email address
+        <input type="email" name="email" autocomplete="email" required>
+      </label>
+      <label class="field">Anything we should know? (optional)
+        <textarea name="notes" rows="3" placeholder="Experience, certification level, questions"></textarea>
+      </label>
+      <p class="booking__note">You'll get a confirmation by email and a reminder two days before.</p>
+      <button class="btn" type="submit">Confirm booking</button>
+      <button class="booking__back" type="button" data-back="date">Back to dates</button>
+    </form>
+
+    <div data-step="done" role="status" hidden>
+      <p class="booking__summary" id="bk-done-summary"></p>
+      <!-- BOOKING: not connected to a database or email yet -->
+      <p class="sheet__done">Draft only: nothing was saved or sent. Once the booking system is connected, the confirmation goes to <span id="bk-done-email"></span> and a reminder follows two days before.</p>
+    </div>
+  </dialog>
+
+  <script src="script.js"></script>
+  <script src="booking.js"></script>
+</body>
+</html>

@@ -1,0 +1,435 @@
+/* Atem Freediving Berlin
+   The page is one dive: bright at the surface, navy at the bottom,
+   with everything hanging off a rope on the left. */
+
+:root {
+  --air: #F3FAF6;
+  --blue: #1F78AE;
+  --mid: #124F86;
+  --navy: #0B1F3F;
+  --abyss: #040B1C;
+  --buoy: #FAEC15;
+  --ink: #0B1F3F;
+  --foam: #EEF6F8;
+  --foam-dim: rgba(238, 246, 248, .8);
+
+  --serif: "Spectral", Georgia, serif;
+  --sans: "Sofia Sans", "DIN Alternate", "Helvetica Neue", Arial, sans-serif;
+
+  /* The rope sets the left edge; content hangs to its right. */
+  --rope-x: max(clamp(30px, 6vw, 96px), calc((100vw - 1320px) / 2));
+  --content-x: calc(var(--rope-x) + clamp(30px, 4.5vw, 72px));
+  --edge: max(clamp(20px, 5vw, 80px), calc((100vw - 1320px) / 2));
+  --waterline: clamp(108px, 17vh, 160px);
+  --plate-y: 6.5rem;
+  --stop-pad: clamp(4rem, 12vh, 8rem);
+  --num-size: clamp(4rem, 8vw, 7rem);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--foam);
+  background: var(--abyss);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, p, dl, dd, ul, figure { margin: 0; }
+h1, h2, h3 { font-family: var(--serif); font-weight: 300; text-wrap: balance; }
+ul { padding: 0; list-style: none; }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+[id] { scroll-margin-top: 84px; }
+
+:focus-visible { outline: 2px solid var(--buoy); outline-offset: 3px; }
+.surface :focus-visible, .nav:not(.is-deep) :focus-visible { outline-color: var(--ink); }
+
+.skip {
+  position: absolute; left: 1rem; top: -4rem; z-index: 30;
+  padding: .6rem 1rem; border-radius: 999px;
+  background: var(--navy); color: var(--foam);
+}
+.skip:focus { top: 1rem; }
+
+/* Buttons echo the buoy: yellow, rounded like an inflated ring. */
+.btn {
+  display: inline-block;
+  padding: .8em 1.5em;
+  border: 0; border-radius: 999px;
+  background: var(--buoy); color: var(--ink);
+  font: 500 1rem/1.2 var(--sans);
+  text-decoration: none; cursor: pointer;
+  transition: background-color .2s;
+}
+.btn:hover { background: #FFF56B; }
+.btn--small { padding: .6em 1.15em; font-size: .95rem; }
+
+/* ---------- Navigation ---------- */
+
+.nav {
+  position: fixed; inset: 0 0 auto 0; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  height: 68px;
+  padding: 0 var(--edge) 0 var(--content-x);
+  color: var(--ink);
+  transition: color .3s, background-color .3s;
+}
+.nav.is-scrolled { background: rgba(243, 250, 246, .72); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.nav.is-deep { color: var(--foam); background: rgba(8, 24, 50, .62); }
+
+.nav__brand {
+  font-family: var(--serif); font-weight: 300; font-size: 1.6rem;
+  text-decoration: none; white-space: nowrap;
+}
+
+.nav__links { display: flex; align-items: center; gap: clamp(.9rem, 2.4vw, 2rem); font-size: .98rem; }
+.nav__links a:not(.btn) { text-decoration: none; }
+.nav__links a:not(.btn):hover { text-decoration: underline; text-underline-offset: .3em; }
+
+/* ---------- The rope ---------- */
+
+.dive { position: relative; }
+
+.rope {
+  position: absolute; z-index: 2;
+  top: var(--waterline); bottom: calc(var(--plate-y) + 5px);
+  left: var(--rope-x);
+  width: 5px; margin-left: -2.5px; border-radius: 3px;
+  /* Twisted cord that loses light on the way down. */
+  background:
+    linear-gradient(180deg, rgba(4, 11, 28, 0) 18%, rgba(4, 11, 28, .5) 100%),
+    repeating-linear-gradient(-55deg, #F6F0DE 0 4px, #BDB293 4px 6px);
+  box-shadow: 0 0 0 .5px rgba(11, 31, 63, .35);
+}
+
+.plate {
+  position: absolute; z-index: 2;
+  left: var(--rope-x); bottom: var(--plate-y);
+  width: 46px; height: 5px; margin-left: -23px; border-radius: 3px;
+  background: #C3CDD8;
+}
+.plate::after {
+  content: ""; position: absolute; left: 50%; top: 5px;
+  width: 12px; height: 22px; margin-left: -6px; border-radius: 0 0 4px 4px;
+  background: #7C8A9B;
+}
+
+/* Depth reading that rides the rope with the visitor. */
+.lanyard {
+  position: fixed; z-index: 4;
+  top: 50vh; left: var(--rope-x);
+  transform: translateX(-50%);
+  padding: .6rem .22rem; border-radius: 999px;
+  background: var(--navy); color: var(--buoy);
+  outline: 1px solid rgba(250, 236, 21, .65);
+  font-size: .82rem; font-weight: 500; line-height: 1;
+  font-variant-numeric: tabular-nums;
+  writing-mode: vertical-rl; white-space: nowrap;
+  pointer-events: none;
+}
+
+/* ---------- Surface (hero) ---------- */
+
+.surface {
+  position: relative; overflow: hidden;
+  min-height: 100svh;
+  padding: calc(var(--waterline) + clamp(3.5rem, 13vh, 8rem)) var(--edge) 24vh var(--content-x);
+  color: var(--ink);
+  background: linear-gradient(180deg,
+    var(--air) 0, var(--air) var(--waterline),
+    #C9EEEC var(--waterline), #9BD9E3 35%, #5DB6D6 66%, #2F8CBE 88%, var(--blue) 100%);
+}
+
+.surface__rays {
+  position: absolute; inset: var(--waterline) 0 0 0;
+  background: conic-gradient(from 160deg at 70% -18%,
+    transparent 0deg, rgba(255, 255, 255, .5) 5deg, transparent 11deg,
+    rgba(255, 255, 255, .28) 17deg, transparent 24deg,
+    rgba(255, 255, 255, .42) 31deg, transparent 38deg,
+    rgba(255, 255, 255, .2) 46deg, transparent 55deg);
+  -webkit-mask-image: linear-gradient(180deg, #000, transparent 80%);
+  mask-image: linear-gradient(180deg, #000, transparent 80%);
+  filter: blur(6px);
+  pointer-events: none;
+}
+
+.surface__wave {
+  position: absolute; left: 0; top: calc(var(--waterline) - 1px);
+  width: max(200%, 2880px); height: 14px;
+  fill: var(--air);
+  animation: drift 22s linear infinite;
+}
+@keyframes drift { to { transform: translateX(-50%); } }
+
+.buoy {
+  position: absolute; z-index: 3;
+  top: var(--waterline); left: var(--rope-x);
+  width: clamp(46px, 9vw, 88px);
+  transform: translate(-50%, -62%);
+  padding: 0; border: 0; background: none; color: var(--ink);
+  font: inherit; cursor: pointer;
+}
+.buoy__float { display: block; width: 100%; animation: bob 5s ease-in-out infinite; transform-origin: 50% 70%; }
+@keyframes bob {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+  50% { transform: translateY(3px) rotate(1.5deg); }
+}
+.buoy__label {
+  position: absolute; left: calc(100% + .7rem); bottom: 62%;
+  font-size: .95rem; white-space: nowrap;
+  text-decoration: underline; text-underline-offset: .3em; text-decoration-thickness: 1px;
+}
+.buoy:hover .buoy__label { text-decoration-thickness: 2px; }
+
+.surface__copy { position: relative; max-width: 40rem; }
+
+h1 {
+  font-weight: 200;
+  font-size: clamp(2.75rem, 7vw, 6rem);
+  line-height: 1.02; letter-spacing: -.015em;
+  max-width: 11ch;
+}
+.surface__lede { margin-top: 1.75rem; max-width: 31rem; font-size: 1.2rem; line-height: 1.5; }
+
+.descend {
+  display: inline-flex; align-items: center; gap: 1rem;
+  margin-top: 2.75rem;
+  font-size: 1.05rem; font-weight: 500; text-decoration: none;
+}
+.descend svg {
+  flex: none; width: 3rem; height: 3rem; padding: .7rem;
+  border: 1.5px solid currentColor; border-radius: 50%;
+  transition: transform .25s;
+}
+.descend:hover svg { transform: translateY(4px); }
+.descend small { display: block; font-size: .92rem; font-weight: 400; opacity: .8; }
+
+/* ---------- Below the surface ---------- */
+
+.depths {
+  background: linear-gradient(180deg,
+    var(--blue) 0, #155E97 9%, var(--mid) 20%, #0E3663 36%,
+    var(--navy) 56%, #071630 78%, var(--abyss) 100%);
+}
+
+h2 { font-size: clamp(2.1rem, 4.4vw, 3.5rem); line-height: 1.08; letter-spacing: -.01em; }
+h3 { font-size: clamp(1.55rem, 2.4vw, 2.125rem); line-height: 1.15; }
+
+.courses__intro { padding: clamp(4rem, 12vh, 8rem) var(--edge) 0 var(--content-x); }
+.courses__intro p { margin-top: 1.1rem; max-width: 32rem; font-size: 1.15rem; }
+
+/* A course: hangs off the rope at its depth. */
+.stop {
+  position: relative;
+  display: grid;
+  grid-template-columns: 12.5rem minmax(0, 1.3fr) minmax(0, 1fr);
+  column-gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: start;
+  padding: var(--stop-pad) var(--edge) var(--stop-pad) var(--content-x);
+}
+
+.stop__mark {
+  position: absolute; z-index: 3;
+  left: var(--rope-x); top: calc(var(--stop-pad) + var(--num-size) * .45);
+  width: 13px; height: 12px; border-radius: 2px;
+  transform: translate(-50%, -50%);
+  background: var(--buoy);
+}
+.stop__mark::after {
+  content: ""; position: absolute; left: 100%; top: 50%;
+  width: calc(var(--content-x) - var(--rope-x) - 16px); height: 1px;
+  background: rgba(250, 236, 21, .55);
+}
+
+.stop__depth {
+  font-weight: 200; font-size: var(--num-size); line-height: .9;
+  letter-spacing: -.02em; white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.stop__depth span { font-size: .3em; font-weight: 300; letter-spacing: 0; }
+
+.stop__body { max-width: 30rem; }
+.stop__body > p { margin-top: .9rem; color: var(--foam-dim); }
+.stop__body .btn { margin-top: 2rem; }
+
+.facts { display: flex; flex-wrap: wrap; gap: 1rem 2.25rem; margin-top: 1.75rem; }
+.facts dt { font-size: .85rem; color: var(--foam-dim); }
+.facts dd { font-weight: 500; }
+
+.stop__photo {
+  justify-self: end; width: 100%; max-width: 22rem;
+  aspect-ratio: 4 / 5; overflow: hidden; border-radius: 3px;
+}
+/* Water absorbs colour with depth, so photos lose it too. */
+.stop__photo img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: saturate(calc(1 - var(--d) * .45)) brightness(calc(1 - var(--d) * .28));
+}
+
+/* ---------- About ---------- */
+
+.about { padding: clamp(5rem, 14vh, 9rem) var(--edge) clamp(4rem, 10vh, 7rem) var(--content-x); }
+
+.about__bio {
+  display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 6rem); align-items: start;
+}
+.about__text { max-width: 34rem; }
+.about__text p { margin-top: 1.2rem; color: var(--foam-dim); }
+.about__text .about__lead {
+  margin-top: 1.75rem;
+  font-family: var(--serif); font-weight: 300; font-size: 1.45rem; line-height: 1.4;
+  color: var(--foam);
+}
+
+.about__portrait { justify-self: end; width: 100%; max-width: 24rem; }
+.about__portrait img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 3px; }
+.about__portrait figcaption { margin-top: .7rem; font-size: .9rem; color: var(--foam-dim); }
+
+.work { margin-top: clamp(4.5rem, 12vh, 8rem); }
+.work__intro { margin-top: .8rem; max-width: 32rem; color: var(--foam-dim); }
+
+.work__stills {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: clamp(.6rem, 1.6vw, 1.25rem);
+  margin-top: 2.5rem; max-width: 56rem;
+}
+.work__stills img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 3px; }
+
+.credits { margin-top: 2.5rem; max-width: 56rem; }
+.credits li {
+  display: grid; grid-template-columns: 9rem 1fr auto; gap: 1.5rem;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(238, 246, 248, .16);
+}
+.credits li:last-child { border-bottom: 1px solid rgba(238, 246, 248, .16); }
+.credits__kind { color: var(--buoy); }
+.credits__year { color: var(--foam-dim); font-variant-numeric: tabular-nums; }
+
+/* ---------- Bottom plate (footer) ---------- */
+
+.bottom { padding: clamp(5rem, 14vh, 9rem) var(--edge) 2.5rem var(--content-x); }
+.bottom__lede { margin-top: 1.1rem; max-width: 30rem; color: var(--foam-dim); }
+.bottom__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem 2rem; margin-top: 2rem; }
+.bottom__mail { text-underline-offset: .3em; }
+
+.bottom__turn { margin-top: clamp(4rem, 12vh, 7rem); color: var(--foam-dim); }
+.bottom__turn a { color: var(--buoy); white-space: nowrap; text-underline-offset: .3em; }
+
+.bottom__meta {
+  display: flex; flex-wrap: wrap; gap: .6rem 1.75rem;
+  margin-top: 3rem;
+  font-size: .9rem; color: var(--foam-dim);
+}
+.bottom__meta span { margin-right: auto; }
+.bottom__meta a, .bottom__meta button { text-decoration: none; }
+.bottom__meta a:hover, .bottom__meta button:hover { color: var(--foam); text-decoration: underline; text-underline-offset: .3em; }
+.bottom__meta button { padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+
+/* ---------- Newsletter dialog ---------- */
+
+.sheet {
+  width: min(28rem, calc(100vw - 2rem));
+  padding: 2.25rem 2rem 2rem;
+  border: 0; border-radius: 14px;
+  background: var(--navy); color: var(--foam);
+}
+.sheet::backdrop { background: rgba(4, 11, 28, .6); backdrop-filter: blur(3px); }
+.sheet h2 { font-size: 2rem; }
+.sheet > p { margin-top: .7rem; color: var(--foam-dim); }
+.sheet__close {
+  position: absolute; top: 1rem; right: 1.1rem;
+  padding: .3rem .4rem; border: 0; background: none;
+  color: var(--foam-dim); font: inherit; font-size: .9rem; cursor: pointer;
+}
+.sheet__close:hover { color: var(--foam); }
+.sheet__form { margin-top: 1.5rem; }
+.sheet__form label { display: block; margin-bottom: .4rem; font-size: .9rem; }
+.sheet__row { display: flex; flex-wrap: wrap; gap: .6rem; }
+.sheet__row input {
+  flex: 1 1 12rem; min-width: 0;
+  padding: .75em 1em;
+  border: 1px solid rgba(238, 246, 248, .4); border-radius: 999px;
+  background: transparent; color: var(--foam);
+  font: inherit;
+}
+.sheet__row input::placeholder { color: rgba(238, 246, 248, .5); }
+.sheet .sheet__done { margin-top: 1.5rem; color: var(--buoy); }
+
+/* ---------- Booking dialog ---------- */
+
+.sheet--booking { width: min(34rem, calc(100vw - 2rem)); }
+.sheet--booking h2:focus { outline: none; }
+.booking__step { margin-bottom: .4rem; font-size: .85rem; color: var(--foam-dim); }
+.booking__summary { margin-top: .7rem; color: var(--foam-dim); }
+.booking__note { margin: 1.25rem 0; font-size: .9rem; color: var(--foam-dim); }
+
+.options { display: grid; gap: .6rem; margin-top: 1.5rem; }
+.option {
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  width: 100%; padding: 1rem 1.15rem;
+  border: 1px solid rgba(238, 246, 248, .28); border-radius: 10px;
+  background: none; color: var(--foam);
+  font: inherit; text-align: left; cursor: pointer;
+  transition: border-color .2s;
+}
+.option:hover:not(:disabled) { border-color: var(--buoy); }
+.option:disabled { opacity: .45; cursor: not-allowed; }
+.option strong { font-weight: 500; }
+.option span { color: var(--foam-dim); }
+.option span strong { color: var(--foam); }
+.option small { font-size: .88rem; color: var(--buoy); white-space: nowrap; }
+
+.booking__back {
+  display: block; margin-top: 1.25rem; padding: 0; border: 0; background: none;
+  color: var(--foam-dim); font: inherit; font-size: .95rem;
+  text-decoration: underline; text-underline-offset: .3em; cursor: pointer;
+}
+.booking__back:hover { color: var(--foam); }
+
+.field { display: block; margin-top: 1rem; font-size: .9rem; }
+.field input, .field textarea {
+  display: block; width: 100%; margin-top: .4rem; padding: .75em 1em;
+  border: 1px solid rgba(238, 246, 248, .4); border-radius: 10px;
+  background: transparent; color: var(--foam);
+  font: inherit; font-size: 1rem; resize: vertical;
+}
+.field textarea::placeholder { color: rgba(238, 246, 248, .5); }
+
+/* ---------- Smaller screens ---------- */
+
+@media (max-width: 999px) {
+  .stop { grid-template-columns: 9rem minmax(0, 1fr); }
+  .stop__photo {
+    grid-column: 2; justify-self: start;
+    max-width: 30rem; margin-top: 2.5rem; aspect-ratio: 16 / 10;
+  }
+}
+
+@media (max-width: 760px) {
+  .about__bio { grid-template-columns: 1fr; }
+  .about__portrait { justify-self: start; }
+  .credits li { grid-template-columns: 1fr auto; gap: .2rem 1rem; }
+  .credits__kind { grid-column: 1 / -1; font-size: .9rem; }
+}
+
+@media (max-width: 639px) {
+  .nav { height: 60px; padding-left: 16px; padding-right: 16px; }
+  .nav__brand { font-size: 1.2rem; }
+  .nav__contact, .nav .btn span { display: none; }
+  .stop { grid-template-columns: 1fr; }
+  .stop__depth { margin-bottom: 1.25rem; }
+  .stop__photo { grid-column: 1; max-width: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .surface__wave, .buoy__float { animation: none; }
+  .descend svg { transition: none; }
+}

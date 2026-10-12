@@ -70,3 +70,15 @@ form.addEventListener('submit', (event) => {
   form.hidden = true;
   done.hidden = false;
 });
+
+// Pool / Sea scenery switch (visuals only). The choice is remembered.
+const envButtons = document.querySelectorAll('[data-env-set]');
+
+function setEnv(env) {
+  document.documentElement.dataset.env = env;
+  envButtons.forEach((button) => button.setAttribute('aria-pressed', button.dataset.envSet === env));
+  try { localStorage.setItem('env', env); } catch (e) {}
+}
+
+envButtons.forEach((button) => button.addEventListener('click', () => setEnv(button.dataset.envSet)));
+setEnv(document.documentElement.dataset.env);

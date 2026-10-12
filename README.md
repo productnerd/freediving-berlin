@@ -23,17 +23,24 @@ Then open http://localhost:4173.
 |---|---|
 | `index.html` | All content: hero, courses, about, footer, and the newsletter and booking dialogs |
 | `styles.css` | Colours, type and layout. Design tokens are at the top in `:root` |
-| `script.js` | Live depth reading on the rope, nav colour change, newsletter dialog |
+| `script.js` | Live depth reading on the rope, nav colour change, newsletter dialog, Pool / Sea toggle |
 | `booking.js` | Booking flow (course, date, details). Course dates are placeholder data at the top |
-| `tasks/todo.md` | What is done, what is next, and every placeholder still to replace |
+| `tasks/todo.md` | What is done, what is next, questions for Anas, and every placeholder still to replace |
 
 ## Design
 
-- Dark navy is the dominant colour, `#FAEC15` (buoy yellow) the accent.
-- Headings are Spectral, everything else is Sofia Sans (both from Google Fonts).
+- Tone: playful and friendly. Anas' brand is the friendliest, smiliest instructor in Berlin.
+- Dark navy is the dominant colour, `#FAEC15` (buoy yellow) the accent, with coral, pink
+  and mint for the sea life.
+- Headings are Bagel Fat One in all caps, everything else is Nunito (both from Google Fonts).
 - The rope sets the left edge (`--rope-x`); all content hangs to its right.
 - A course's depth comes from `data-depth` on its `.stop` element. The depth reading
   interpolates between those marks, so a new course only needs a new `.stop` block.
+- The Pool / Sea toggle sets `data-env` on `<html>`. Anything with class `sea-only` or
+  `pool-only` shows in one scenery only, and the water colours are CSS variables that
+  the pool scenery overrides. It changes visuals only, never content.
+- Fish and pool toys are SVG symbols defined once at the top of `index.html` and placed
+  with `<span class="critter">`. Deeper sections get deeper-water creatures.
 
 ## State of things
 
@@ -46,7 +53,7 @@ Front end only. Nothing is saved or sent yet.
 - **Placeholders:** prices, course dates, the 30 m depth for summer training, bio text,
   portfolio credits, contact details and all photos (Unsplash stand-ins). The full list
   is in `tasks/todo.md`.
-- **Planned:** a pool / sea toggle (what it changes is still to be decided).
+- **Open questions for Anas** are listed in `tasks/todo.md`. Start there.
 
 ## Hosting
 

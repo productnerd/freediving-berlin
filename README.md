@@ -29,17 +29,17 @@ Then open http://localhost:4173.
 
 ## Design
 
-- Tone: playful and friendly. Anas' brand is the friendliest, smiliest instructor in Berlin.
+- Tone: bold, friendly and sporty, not childish. Anas' brand is the friendliest, smiliest instructor in Berlin.
 - Dark navy is the dominant colour, `#FAEC15` (buoy yellow) the accent, with coral, pink
   and mint for the sea life.
-- Headings are Bagel Fat One in all caps, everything else is Nunito (both from Google Fonts).
+- Headings are Erica One in all caps, set large, everything else is Barlow (both from Google Fonts).
 - The rope sets the left edge (`--rope-x`); all content hangs to its right.
 - A course's depth comes from `data-depth` on its `.stop` element. The depth reading
   interpolates between those marks, so a new course only needs a new `.stop` block.
 - The Pool / Sea toggle sets `data-env` on `<html>`. Anything with class `sea-only` or
   `pool-only` shows in one scenery only, and the water colours are CSS variables that
   the pool scenery overrides. It changes visuals only, never content.
-- Fish and pool toys are SVG symbols defined once at the top of `index.html` and placed
+- Sea life and pool gear are flat silhouette SVG symbols defined once at the top of `index.html` and placed
   with `<span class="critter">`. Deeper sections get deeper-water creatures.
 
 ## State of things
